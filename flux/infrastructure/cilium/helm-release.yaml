@@ -1,0 +1,37 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: kube-system
+spec:
+  chart:
+    spec:
+      chart: cilium
+      version: 1.14.5
+      sourceRef:
+        kind: HelmRepository
+        name: cilium
+        namespace: kube-system
+  interval: 5m
+  values:
+    # -- Configure the kube-proxy replacement in Cilium BPF datapath
+    kubeProxyReplacement: true
+    # -- Enable CiliumEndpointSlice feature.
+    enableCiliumEndpointSlice: true
+    gatewayAPI:
+      # -- Enable support for Gateway API in cilium
+      enabled: true
+    externalIPs:
+      # -- Enable ExternalIPs service support.
+      enabled: true
+    hubble:
+      relay:
+        # -- Enable Hubble Relay (requires hubble.enabled=true)
+        enabled: true
+    nodePort:
+      # -- Enable the Cilium NodePort service implementation.
+      enabled: true
+    l7:
+      # -- Enable L7 service load balancing via envoy proxy.
+      backend: envoy
