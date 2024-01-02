@@ -21,7 +21,7 @@ spec:
     enableCiliumEndpointSlice: true
     gatewayAPI:
       # -- Enable support for Gateway API in cilium
-      enabled: true
+      enabled: false
     externalIPs:
       # -- Enable ExternalIPs service support.
       enabled: true
@@ -34,4 +34,4 @@ spec:
       enabled: true
     l7:
       # -- Enable L7 service load balancing via envoy proxy.
-      backend: envoy
+      backend: disabled
