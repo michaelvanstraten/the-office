@@ -15,3 +15,20 @@ spec:
   dependsOn:
     - name: cilium
       namespace: kube-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ceph-cluster
+  namespace: rook-ceph
+spec:
+  interval: 5m
+  path: "./rook-ceph/cluster"
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  dependsOn:
+    - name: rook-ceph
+      namespace: rook-ceph

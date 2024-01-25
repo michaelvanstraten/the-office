@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=./cluster.yaml
+
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph
+spec:
+  cephVersion:
+    # The container image used to launch the Ceph daemon pods (mon, mgr, osd, mds, rgw).
+    image: quay.io/ceph/ceph:v18.2.1
+    # Whether to allow unsupported versions of Ceph. Currently `quincy` and `reef` are supported.
+    allowUnsupported: false
+  # The path on the host where configuration files will be persisted. Must be specified.
+  dataDirHostPath: /var/lib/rook
+  mon:
+    # Number of mons to be started.
+    count: 3
+    # The mons should be on unique nodes.
+    allowMultiplePerNode: false
+  mgr:
+    # Number of mgrs to be started.
+    count: 2
+    # The mgrs should be on unique nodes.
+    allowMultiplePerNode: false
+    modules:
+      - name: rook
+        enabled: true
+  # enable the ceph dashboard for viewing cluster status
+  dashboard:
+    enabled: true
+    # Serve the dashboard without SSL
+    ssl: false
+  # enable prometheus alerting for cluster
+  # monitoring:
+  #   # requires Prometheus to be pre-installed
+  #   enabled: false
+  #   # Whether to disable the metrics reported by Ceph. If false, the prometheus mgr module and Ceph exporter are enabled.
+  #   # If true, the prometheus mgr module and Ceph exporter are both disabled. Default is false.
+  #   metricsDisabled: false
+  storage: # cluster level storage configuration and selection
+    useAllNodes: true
+    useAllDevices: true
