@@ -2,8 +2,14 @@
 # vim: set filetype=yaml:
 
 bootcmd:
-  - [ cloud-init-per, once, move-second-header, sgdisk, --move-second-header, /dev/sda ]
-  - [ cloud-init-per, once, create-ceph-part, parted, --script, /dev/sda, "mkpart ceph 32GB -1" ]
+  - |
+    cloud-init-per once create-ceph-part sh -xc '
+      devices=$(fdisk -l 2>/dev/null | grep "Disk /" | awk "{print \$2}" | sed -e "s/://g")
+      if [ $(echo "$devices" | wc -l) -eq 1 ]; then
+          sgdisk --move-second-header "$devices"
+          parted --script "$devices" "mkpart ceph 32GB -1"
+      fi
+    '
 
 ssh_authorized_keys:
   - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF8OCYTaHjQy7Y7bRmxzVwNBgnD9P21UQPzVpJ3NKwVV michael@vanstraten.de
