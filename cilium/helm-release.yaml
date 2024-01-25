@@ -12,7 +12,6 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: cilium
-        namespace: kube-system
   interval: 5m
   values:
     # -- Configure the kube-proxy replacement in Cilium BPF datapath
