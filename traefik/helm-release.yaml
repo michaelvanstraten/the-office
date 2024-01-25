@@ -11,9 +11,9 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-      version: '>=26.0'
+      version: ">=26.0"
   interval: 1h
   values:
     service:
-      externalIPs: 
+      externalIPs:
         - 152.53.16.168
