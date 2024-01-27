@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://github.com/fluxcd-community/flux2-schemas/raw/main/helmrelease-helm-v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: gitea
+  namespace: personal
+spec:
+  chart:
+    spec:
+      chart: gitea
+      version: 10.x
+      sourceRef:
+        kind: HelmRepository
+        name: gitea-charts
+  interval: 20m
+  values:
+    persistence:
+      enabled: true
+      storageClass: rook-ceph-block
+    ingress:
+      enabled: true
+      hosts:
+        - host: gitea.vanstraten.cloud
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - "gitea.vanstraten.cloud"
+          secretName: wildcard.vanstraten.cloud
