@@ -40,14 +40,12 @@ metadata:
   namespace: rook-ceph
 spec:
   interval: 5m
-  path: "./rook-ceph/cluster"
+  path: "./rook-ceph/storage-classes"
   prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
   dependsOn:
-    - name: rook-ceph
-      namespace: rook-ceph-operator
-    - name: rook-ceph
-      namespace: ceph-cluster
+    - name: ceph-cluster
+      namespace: rook-ceph
