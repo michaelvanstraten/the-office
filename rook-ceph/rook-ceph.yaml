@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: rook-ceph
+  name: rook-ceph-operator
   namespace: rook-ceph
 spec:
   interval: 5m
@@ -30,5 +30,24 @@ spec:
     name: flux-system
     namespace: flux-system
   dependsOn:
-    - name: rook-ceph
+    - name: rook-ceph-operator
       namespace: rook-ceph
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: storage-classes
+  namespace: rook-ceph
+spec:
+  interval: 5m
+  path: "./rook-ceph/cluster"
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  dependsOn:
+    - name: rook-ceph
+      namespace: rook-ceph-operator
+    - name: rook-ceph
+      namespace: ceph-cluster
