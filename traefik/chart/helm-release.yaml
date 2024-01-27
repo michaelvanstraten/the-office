@@ -14,6 +14,22 @@ spec:
       version: ">=26.0"
   interval: 1h
   values:
+    deployment:
+      enabled: true
+      kind: Deployment
+      replicas: 1
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
+    ingressRoute:
+      dashboard:
+        enabled: false
+    ports:
+      web:
+        redirectTo:
+          port: websecure
     service:
       externalIPs:
         - 152.53.16.168
+        - 92.60.39.158
+        - 152.53.17.249
