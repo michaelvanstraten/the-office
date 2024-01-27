@@ -33,3 +33,6 @@ spec:
         traefik.ingress.kubernetes.io/router.tls: "true"
         traefik.ingress.kubernetes.io/router.tls.domains.0.main: "vanstraten.cloud"
         traefik.ingress.kubernetes.io/router.tls.domains.0.sans: "*.vanstraten.cloud"
+    config:
+      admin:
+        existingSecret: gitea-admin-secret

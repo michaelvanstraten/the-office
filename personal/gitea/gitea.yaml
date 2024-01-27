@@ -3,6 +3,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: gitea-secrets
+  namespace: personal
+spec:
+  interval: 5m
+  path: "./personal/gitea/secrets"
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  prune: true
+---
+# yaml-language-server: $schema=https://github.com/fluxcd-community/flux2-schemas/raw/main/kustomization-kustomize-v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: gitea
   namespace: personal
 spec:
@@ -15,4 +30,6 @@ spec:
   prune: true
   dependsOn:
     - name: certificates
+      namespace: personal
+    - name: gitea-secrets
       namespace: personal
