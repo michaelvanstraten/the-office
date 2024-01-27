@@ -29,3 +29,7 @@ spec:
         - hosts:
             - "gitea.vanstraten.cloud"
           secretName: wildcard.vanstraten.cloud
+      annotations:
+        traefik.ingress.kubernetes.io/router.tls: "true"
+        traefik.ingress.kubernetes.io/router.tls.domains.0.main: "vanstraten.cloud"
+        traefik.ingress.kubernetes.io/router.tls.domains.0.sans: "*.vanstraten.cloud"

@@ -3,16 +3,21 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: gitea
+  name: certificates
   namespace: personal
 spec:
   interval: 5m
-  path: "./personal/gitea/chart"
+  path: "./personal/certificates"
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  prune: true
-  dependsOn:
-    - name: certificates
+  prune: false
+  healthChecks:
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      name: wildcard.vanstraten.cloud
       namespace: personal
+  dependsOn:
+    - name: cluster-issuers
+      namespace: cert-manager
