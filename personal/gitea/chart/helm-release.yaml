@@ -43,3 +43,5 @@ spec:
     config:
       admin:
         existingSecret: gitea-admin-secret
+      repository:
+        DISABLE_HTTP_GIT: true
