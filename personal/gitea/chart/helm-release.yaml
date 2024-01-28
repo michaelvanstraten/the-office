@@ -15,6 +15,13 @@ spec:
         name: gitea-charts
   interval: 20m
   values:
+    service:
+      ssh:
+        type: LoadBalancer
+        externalIPs:
+          - 152.53.16.168
+          - 92.60.39.158
+          - 152.53.17.249
     persistence:
       enabled: true
       storageClass: rook-ceph-block
