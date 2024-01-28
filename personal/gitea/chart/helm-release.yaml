@@ -45,3 +45,7 @@ spec:
         existingSecret: gitea-admin-secret
       repository:
         DISABLE_HTTP_GIT: true
+      server:
+        USE_PROXY_PROTOCOL: true
+        DOMAIN: gitea.vanstraten.cloud
+        ROOT_URL: https://gitea.vanstraten.cloud/
