@@ -52,3 +52,5 @@ spec:
         ROOT_URL: https://gitea.vanstraten.cloud/
       security:
         PASSWORD_HASH_ALGO: bcrypt
+      service:
+        DISABLE_REGISTRATION: true
