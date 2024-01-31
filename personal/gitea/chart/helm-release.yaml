@@ -46,7 +46,9 @@ spec:
         traefik.ingress.kubernetes.io/router.tls.domains.0.sans: "*.vanstraten.cloud"
     persistence:
       enabled: true
-      storageClass: rook-ceph-block
+      storageClass: rook-cephfs
+      accessModes:
+        - ReadWriteMany
     service:
       ssh:
         type: LoadBalancer
